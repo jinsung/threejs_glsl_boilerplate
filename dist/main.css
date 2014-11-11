@@ -1,0 +1,18 @@
+body {
+    background: #000;
+    color: #999;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    font-family: georgia;
+    font-size:1em;
+    text-align: center;
+}
+
+#canvas {
+    position: absolute;
+    bottom: 0%;
+    left: 0%;
+    -webkit-transform: scale(0.2,0.2);
+    -webkit-transform-origin: left bottom;
+}
