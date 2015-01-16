@@ -1,10 +1,7 @@
-boilerplate.ns('boilerplate.main');
+nikeGoogle3D.ns('nikeGoogle3D.main');
 
-boilerplate.main = (function () {
-	var FAR = 2000,
-	    NEAR = 1,
-	    FOV = 60,
-	    SIZE = 512,
+nikeGoogle3D.main = (function () {
+	var SIZE = 2,
 	    divDom, stats,
 	    camera, scene, renderer,
 	    container, clock,
@@ -15,16 +12,17 @@ boilerplate.main = (function () {
 			divDom = document.createElement('div');
 			document.body.appendChild(divDom);
 
-			scene = new THREE.Scene();
-			var aspect = window.innerWidth / window.innerHeight;
 			camera = new THREE.Camera()
 			camera.position.z = 1;
-			scene.add(camera);
+
+			scene = new THREE.Scene();
+
+			//scene.add(camera);
 			container = new THREE.Object3D();
 			scene.add(container);
 
-			renderer = new THREE.WebGLRenderer( {antialias: true} );
-			renderer.setSize(window.innerWidth, window.innerHeight);
+			renderer = new THREE.WebGLRenderer( );
+			renderer.setPixelRatio( window.devicePixelRatio );
 
 			divDom.appendChild( renderer.domElement );
 
@@ -32,21 +30,21 @@ boilerplate.main = (function () {
 			clock.frameNumber = 0;
 			clock.start();
 
-			boilerplate.main.addMesh();
+			nikeGoogle3D.main.addMesh();
 
-			boilerplate.main.onWindowResize();
+			nikeGoogle3D.main.onWindowResize();
 
 			window.addEventListener( 'resize', 
-				boilerplate.main.onWindowResize, false );
+				nikeGoogle3D.main.onWindowResize, false );
 
-			boilerplate.main.animate();
+			nikeGoogle3D.main.animate();
 		},
 
 		addMesh: function () {
 			var geometry = new THREE.PlaneBufferGeometry( SIZE, SIZE );
 			uniforms = {
-				time: { type: "f", value: 1.0 },
-				resolution: { type: "v2", value: new THREE.Vector2() }
+				iGlobalTime: { type: "f", value: 1.0 },
+				iResolution: { type: "v2", value: new THREE.Vector2() }
 			};
 
 			var material = new THREE.ShaderMaterial( {
@@ -59,20 +57,19 @@ boilerplate.main = (function () {
 		},
 
 		onWindowResize: function () {
-			uniforms.resolution.value.x = window.innerWidth;
-			uniforms.resolution.value.y = window.innerHeight;
-
 			renderer.setSize( window.innerWidth, window.innerHeight );
+			uniforms.iResolution.value.x = renderer.domElement.width;
+			uniforms.iResolution.value.y = renderer.domElement.height;
 		},
 
 		animate: function () {
-			requestAnimationFrame(boilerplate.main.animate);
-			boilerplate.main.update();
-			boilerplate.main.render();
+			requestAnimationFrame(nikeGoogle3D.main.animate);
+			nikeGoogle3D.main.update();
+			nikeGoogle3D.main.render();
 		},
 
 		update: function () {
-			uniforms.time.value += 0.05;
+			uniforms.iGlobalTime.value += 0.05;
 		}, 
 
 		render: function () {
@@ -82,6 +79,6 @@ boilerplate.main = (function () {
 })();
 
 document.addEventListener('DOMContentLoaded', function() {
-    boilerplate.main.init();
+    nikeGoogle3D.main.init();
   }, false
 );

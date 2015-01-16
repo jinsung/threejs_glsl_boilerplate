@@ -1,8 +1,8 @@
-if (typeof boilerplate === 'undefined') {
-  var boilerplate = {};
+if (typeof nikeGoogle3D === 'undefined') {
+  var nikeGoogle3D = {};
 }
 
-boilerplate.ns = function(name) {
+nikeGoogle3D.ns = function(name) {
   var parts = name.split('.'),
     namespace = window,
     part;
